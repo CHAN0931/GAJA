@@ -1,0 +1,2 @@
+rootProject.name = "GAJA"
+include ':app'
