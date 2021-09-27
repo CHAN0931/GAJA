@@ -15,6 +15,7 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="1uy4i59evh"/>
+        <activity android:name=".ui.SearchFragment"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

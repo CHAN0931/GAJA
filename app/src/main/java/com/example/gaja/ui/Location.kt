@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gaja.R
+import com.google.android.material.snackbar.Snackbar
 import com.naver.maps.map.*
 import com.naver.maps.map.util.FusedLocationSource
+import kotlinx.android.synthetic.main.fragment_location.*
 
 class location : Fragment(), OnMapReadyCallback {
     var TAG:String = "로그"
