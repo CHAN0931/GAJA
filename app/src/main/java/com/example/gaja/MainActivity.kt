@@ -11,6 +11,7 @@ import com.example.gaja.ui.SearchFragment
 import com.example.gaja.ui.bookmark
 import com.example.gaja.ui.location
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
     private var isFabOpen = false
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
         fabMain.setOnClickListener { toggleFab() }
 
-        //모달다이어로그 구현해야함
+        //->dialog
         fab_search_menu.setOnClickListener {
             val intent = Intent(this, SearchFragment::class.java)
             startActivity(intent)
