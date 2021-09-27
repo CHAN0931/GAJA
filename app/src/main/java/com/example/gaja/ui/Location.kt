@@ -92,12 +92,12 @@ class location : Fragment(), OnMapReadyCallback {
         }
         //MapClickEvent
         naverMap.setOnMapClickListener { point, coord ->
-            Toast.makeText(requireContext(), "클릭\n${coord.latitude}\n${coord.longitude}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "클릭\n${coord.latitude}\n${coord.longitude}", Toast.LENGTH_SHORT).show()
         }
 
         naverMap.setOnMapLongClickListener { point, coord ->
             showMarker(coord)
-            Toast.makeText(requireContext(), "핀마크 생성\n${coord.latitude}\n${coord.longitude}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "핀 마크 생성\n${coord.latitude}\n${coord.longitude}", Toast.LENGTH_LONG).show()
         }
     }
     override fun onRequestPermissionsResult(

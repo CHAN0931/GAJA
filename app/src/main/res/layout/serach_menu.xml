@@ -20,4 +20,23 @@
         android:enabled="false"
         android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/editTextTextPostalAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress" />
+
+    <Button
+        android:id="@+id/goal_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="도착지 검색" />
+
+    <Button
+        android:id="@+id/find_direction_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="경로검색" />
+
 </LinearLayout>
