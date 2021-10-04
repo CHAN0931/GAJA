@@ -46,10 +46,12 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "메인플로팅 테스트 : $isFabOpen", Toast.LENGTH_SHORT).show()
         if(isFabOpen){
             ObjectAnimator.ofFloat(fab_search_menu, "translationY", 0f).apply { start() }
+            ObjectAnimator.ofFloat(testingbtn, "translationY", 0f).apply { start() }
             fabMain.setImageResource(R.drawable.ic_baseline_add_circle_24)
         }
         else {
             ObjectAnimator.ofFloat(fab_search_menu, "translationY", -200f).apply { start() }
+            ObjectAnimator.ofFloat(testingbtn, "translationY", -400f).apply { start() }
             fabMain.setImageResource(R.drawable.ic_baseline_clear_24)
         }
         isFabOpen = !isFabOpen

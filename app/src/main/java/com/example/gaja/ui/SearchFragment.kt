@@ -18,7 +18,6 @@ class SearchFragment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.serach_menu)
-
         my_location_button.setOnClickListener {
         }
     }

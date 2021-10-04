@@ -16,12 +16,13 @@
         android:id="@+id/my_location_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:editable="true"
         android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:ignore="Deprecated" />
 
     <EditText
-        android:id="@+id/editTextTextPostalAddress"
+        android:id="@+id/goal_location_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
