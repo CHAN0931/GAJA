@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/res/values/client_id.xml
+/app/src/main/res/values/client_secret.xml

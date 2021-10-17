@@ -15,6 +15,7 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.*
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.roundToInt
 
 class location : Fragment(), OnMapReadyCallback {
@@ -98,15 +99,15 @@ class location : Fragment(), OnMapReadyCallback {
                 }
             }
         }
-
         //MapClickEvent
-        naverMap.setOnMapClickListener { _, _ ->
-            marker.map = null
-            polyline.map = null
-            infoWindow.close()
-        }
+//        naverMap.setOnMapClickListener { _, _ ->
+//            marker.map = null
+//            polyline.map = null
+//            infoWindow.close()
+//        }
         naverMap.setOnSymbolClickListener { symbol	->
             showMarker(symbol.position,	symbol.caption)
+            showOverlays(symbol.position, symbol.caption)
             true
         }
         naverMap.setOnMapLongClickListener { point, coord ->
