@@ -10,11 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.example.gaja.R
-import com.example.gaja.api.NaverAPI
-import com.example.gaja.api.ResultPath
-import com.example.gaja.api.ReverseGeocodingAPI
-import com.example.gaja.api.ReverseGeocodingResponse
-import com.google.android.material.snackbar.Snackbar
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -22,20 +17,9 @@ import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.overlay.PolylineOverlay
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_location.*
-import kotlinx.android.synthetic.main.serach_menu.*
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class location : Fragment(), OnMapReadyCallback {
-    var goal_latit = ""
-    var goal_longit = ""
-    val startDirection = ""
-    val goalDirection = ""
-    private val APIKEY_ID = "1uy4i59evh"
-    private val APIKEY = "secret"
+
     var TAG:String = "로그"
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -50,13 +34,6 @@ class location : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("https://naveropenapi.apigw.ntruss.com/")
-//            .addConverterFactory(MoshiConverterFactory.create())
-//            .build()
-//        val reverseGeocodingService = retrofit.create<ReverseGeocodingAPI>()
-        //레트로핏 객체 생성
-
         return inflater.inflate(R.layout.fragment_location, container, false)
     }
     override fun onMapReady(naverMap: NaverMap) {       //MapReady!!
@@ -64,53 +41,19 @@ class location : Fragment(), OnMapReadyCallback {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
         naverMap.uiSettings.isLocationButtonEnabled = true
-        //API
-        ///////////////////////////////
-        val retrofit = Retrofit.Builder().
-        baseUrl("https://naveropenapi.apigw.ntruss.com/map-direction/").addConverterFactory(GsonConverterFactory.create()).build()
-        val api = retrofit.create(NaverAPI::class.java)
-        val callgetPath = api.getPath(APIKEY_ID, APIKEY,"${locationSource.lastLocation?.longitude}, ${locationSource.lastLocation?.latitude}", "${goal_longit}, $goal_latit")
-        var path_cords_list = mutableListOf<>()
-        callgetPath.enqueue(object: Callback<ResultPath>{
-            override fun onResponse(call: Call<ResultPath>,
-                                    response: Response<ResultPath>) {
-
-                path_cords_list = response.body()?.route?.traoptimal
-                val path = PathOverlay()
-                //MutableList에 add 기능 쓰기 위해 더미 원소 하나 넣어둠
-                val path_container : MutableList<LatLng>? = mutableListOf(LatLng(0.1,0.1))
-                for(path_cords in path_cords_list!!) {
-                    for (path_cords_xy in path_cords?.path) {
-                        //구한 경로를 하나씩 path_container에 추가해줌
-                        path_container?.add(LatLng(path_cords_xy[1], path_cords_xy[0]))
-                    }
-                }
-                path.coords = path_container?.drop(1)!!
-                path.color = Color.RED
-                path.map = naverMap
-                if(path.coords != null) {
-                    val cameraUpdate = CameraUpdate.scrollTo(path.coords[0]!!)
-                        .animate(CameraAnimation.Fly, 3000)
-                    naverMap!!.moveCamera(cameraUpdate)
-
-                    Toast.makeText(requireContext(), "경로 안내가 시작됩니다.", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ResultPath>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
-        ////////////////////////////////////////////////////////////////////
         //Marker
         //overlay
-        val polyline = PolylineOverlay().apply {  }
+        val polyline = PolylineOverlay().apply {
+            width = resources.getDimensionPixelSize(R.dimen.line_width)
+//            color = ResourcesCompat.getColor(resources, R.color.line_color,)
+        }
         val path = PathOverlay().apply {  }
         val marker = Marker().apply{
             icon = MarkerIcons.LIGHTBLUE
             isHideCollidedSymbols = true
             setOnClickListener {
-                map = null
+                val cameraUpdate = CameraUpdate.scrollTo(position).animate(CameraAnimation.Easing)
+                naverMap.moveCamera(cameraUpdate)
                 true
             }
         }
@@ -122,7 +65,8 @@ class location : Fragment(), OnMapReadyCallback {
                 map = naverMap
             }
         }
-        //좌표->주소 변경필요
+
+
         fun showOverlays(coord: LatLng, caption: String? = null){
             marker.apply{
                 if(caption == null){
@@ -143,12 +87,13 @@ class location : Fragment(), OnMapReadyCallback {
         naverMap.setOnMapClickListener { point, coord ->
             Toast.makeText(requireContext(), "클릭\n${coord.latitude}\n${coord.longitude}", Toast.LENGTH_SHORT).show()
         }
-
+        naverMap.setOnSymbolClickListener { symbol	->
+            showMarker(symbol.position,	symbol.caption)
+            true
+        }
         naverMap.setOnMapLongClickListener { point, coord ->
             showMarker(coord)
             //MAP DIRECTION EVENT
-            goal_longit = coord.longitude.toString()
-            goal_latit = coord.latitude.toString()
         }
 
     }

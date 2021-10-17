@@ -14,7 +14,7 @@
         android:theme="@style/Theme.GAJA">
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="1uy4i59evh"/>
+            android:value="@string/naver_map_sdk_client_id"/>
         <activity android:name=".ui.SearchFragment"/>
         <activity
             android:name=".MainActivity"
