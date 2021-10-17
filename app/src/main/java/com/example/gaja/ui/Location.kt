@@ -9,13 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.gaja.R
+import com.example.gaja.api.DirectionsResponse
+import com.example.gaja.api.MapsApi
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.*
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class location : Fragment(), OnMapReadyCallback {
@@ -64,7 +68,11 @@ class location : Fragment(), OnMapReadyCallback {
         }
         val infoWindow = InfoWindow().apply {
             adapter = object : InfoWindow.DefaultTextAdapter(requireContext()){
-                override fun getText(infoWindow: InfoWindow): CharSequence = tag as? String ?: ""
+//                override fun getText(infoWindow: InfoWindow): CharSequence = tag as? String ?: ""
+                override fun getText(infoWindow: InfoWindow): CharSequence {
+                    val summary = infoWindow.tag as? DirectionsResponse.Route.Summary ?: return ""
+    return "${summary.distance}m / ${summary.duration / 1000 / 60}분"
+                }
             }
         }
 
@@ -77,34 +85,45 @@ class location : Fragment(), OnMapReadyCallback {
         }
 
 
-        fun showOverlays(coord: LatLng, caption: String? = "${coord.latitude}\n${coord.longitude}"){
+        fun showOverlays(coord: LatLng, caption: String? = null){
             marker.apply{
                 if(caption == null){
                     captionText = ""
+                    lifecycleScope.launch {
+                        captionText = MapsApi.reverseGeocode(coord).toString()
+                    }
+                } else {
+                    captionText = caption
                 }
             }
+            path.map = null
+            infoWindow.close()
+
             if(naverMap.locationOverlay.isVisible){
-                infoWindow.apply{
-                    tag = "${naverMap.locationOverlay.position.distanceTo(marker.position).roundToInt()}m"
-                    invalidate()
-                    open(marker)
-                }
-                polyline.apply {
-                    coords = listOf(naverMap.locationOverlay.position, coord)
-                    map = naverMap
-                }
-                path.apply {
-                    coords = listOf(naverMap.locationOverlay.position, coord)
-                    map = naverMap
+//                infoWindow.apply{
+//                    tag = "${naverMap.locationOverlay.position.distanceTo(marker.position).roundToInt()}m"
+//                    invalidate()
+//                    open(marker)
+//                }
+//                polyline.apply {
+//                    coords = listOf(naverMap.locationOverlay.position, coord)
+//                    map = naverMap
+//                }
+//                path.apply {
+//                    coords = listOf(naverMap.locationOverlay.position, coord)
+//                    map = naverMap
+//                }
+                lifecycleScope.launch {
+                    MapsApi.directions(naverMap.locationOverlay.position, coord).firstRoute?.let {
+                        path.coords = it.coords
+                        path.map = naverMap
+                        infoWindow.tag = it.summary
+                        infoWindow.invalidate()
+                        infoWindow.open(marker)
+                    }
                 }
             }
         }
-        //MapClickEvent
-//        naverMap.setOnMapClickListener { _, _ ->
-//            marker.map = null
-//            polyline.map = null
-//            infoWindow.close()
-//        }
         naverMap.setOnSymbolClickListener { symbol	->
             showMarker(symbol.position,	symbol.caption)
             showOverlays(symbol.position, symbol.caption)

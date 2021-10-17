@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.gaja.api.MapsApi
 import com.example.gaja.ui.SearchFragment
 import com.example.gaja.ui.bookmark
 import com.example.gaja.ui.location
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        MapsApi.init(getString(R.string.naver_map_sdk_client_id), getString(R.string.naver_map_sdk_client_secret))
         bottomNavi.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_bookmarkfragment -> {
