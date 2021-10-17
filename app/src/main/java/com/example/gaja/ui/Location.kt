@@ -12,11 +12,10 @@ import androidx.core.content.res.ResourcesCompat
 import com.example.gaja.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
-import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.overlay.PathOverlay
-import com.naver.maps.map.overlay.PolylineOverlay
+import com.naver.maps.map.overlay.*
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import kotlin.math.roundToInt
 
 class location : Fragment(), OnMapReadyCallback {
 
@@ -45,9 +44,14 @@ class location : Fragment(), OnMapReadyCallback {
         //overlay
         val polyline = PolylineOverlay().apply {
             width = resources.getDimensionPixelSize(R.dimen.line_width)
-//            color = ResourcesCompat.getColor(resources, R.color.line_color,)
+            color = ResourcesCompat.getColor(resources, R.color.line_color, context?.theme)
         }
-        val path = PathOverlay().apply {  }
+        val path = PathOverlay().apply {
+            width = resources.getDimensionPixelSize(R.dimen.line_width)
+            color = ResourcesCompat.getColor(resources, R.color.line_color, context?.theme)
+            outlineColor = ResourcesCompat.getColor(resources, R.color.outline_color, context?.theme)
+            patternImage = OverlayImage.fromResource(R.drawable.path_pattern)
+        }
         val marker = Marker().apply{
             icon = MarkerIcons.LIGHTBLUE
             isHideCollidedSymbols = true
@@ -55,6 +59,11 @@ class location : Fragment(), OnMapReadyCallback {
                 val cameraUpdate = CameraUpdate.scrollTo(position).animate(CameraAnimation.Easing)
                 naverMap.moveCamera(cameraUpdate)
                 true
+            }
+        }
+        val infoWindow = InfoWindow().apply {
+            adapter = object : InfoWindow.DefaultTextAdapter(requireContext()){
+                override fun getText(infoWindow: InfoWindow): CharSequence = tag as? String ?: ""
             }
         }
 
@@ -67,25 +76,34 @@ class location : Fragment(), OnMapReadyCallback {
         }
 
 
-        fun showOverlays(coord: LatLng, caption: String? = null){
+        fun showOverlays(coord: LatLng, caption: String? = "${coord.latitude}\n${coord.longitude}"){
             marker.apply{
                 if(caption == null){
                     captionText = ""
                 }
             }
             if(naverMap.locationOverlay.isVisible){
+                infoWindow.apply{
+                    tag = "${naverMap.locationOverlay.position.distanceTo(marker.position).roundToInt()}m"
+                    invalidate()
+                    open(marker)
+                }
                 polyline.apply {
                     coords = listOf(naverMap.locationOverlay.position, coord)
                     map = naverMap
                 }
-                path.apply { coords = listOf(naverMap.locationOverlay.position, coord)
-                map = naverMap
+                path.apply {
+                    coords = listOf(naverMap.locationOverlay.position, coord)
+                    map = naverMap
                 }
             }
         }
+
         //MapClickEvent
-        naverMap.setOnMapClickListener { point, coord ->
-            Toast.makeText(requireContext(), "클릭\n${coord.latitude}\n${coord.longitude}", Toast.LENGTH_SHORT).show()
+        naverMap.setOnMapClickListener { _, _ ->
+            marker.map = null
+            polyline.map = null
+            infoWindow.close()
         }
         naverMap.setOnSymbolClickListener { symbol	->
             showMarker(symbol.position,	symbol.caption)
