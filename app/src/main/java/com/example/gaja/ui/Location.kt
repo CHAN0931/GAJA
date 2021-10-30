@@ -43,7 +43,7 @@ class location : Fragment(), OnMapReadyCallback {
             }
         mapFragment.getMapAsync(this)
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-        dbHelper = DBHelper(requireContext(), "bookmark.db", null, 1)
+        dbHelper = DBHelper(requireContext(), "bookmarker.db", null, 1)
         database = dbHelper.writableDatabase
         return inflater.inflate(R.layout.fragment_location, container, false)
     }
@@ -145,6 +145,7 @@ class location : Fragment(), OnMapReadyCallback {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
         companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }

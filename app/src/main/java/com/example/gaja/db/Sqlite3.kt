@@ -12,14 +12,14 @@ class DBHelper(
     version: Int
 ) : SQLiteOpenHelper(context, name, factory, version) {
     override fun onCreate(db: SQLiteDatabase) {
-        var sql : String = "CREATE TABLE if not exists mytable (" +
+        var sql : String = "CREATE TABLE if not exists bookmarker (" +
                 "_id integer primary key autoincrement," +
                 "txt text);";
         db.execSQL(sql)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        val sql : String = "DROP TABLE if exists mytable"
+        val sql : String = "DROP TABLE if exists bookmarker"
 
         db.execSQL(sql)
         onCreate(db)
