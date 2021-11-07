@@ -9,6 +9,7 @@
 __Android API 20 (Android 5.0 [LOLLIPOP])__   
 
 ## Code
+*res/values/client_id.xml
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
