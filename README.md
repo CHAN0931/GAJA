@@ -1,4 +1,5 @@
-# GAJA
+# GAJA   
+This is Android Application
 Find a fast way (~~Public transport~~, Car, ETC..)   
 ## Required   
 Location Access / Network Access   
