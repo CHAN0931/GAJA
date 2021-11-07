@@ -1,5 +1,5 @@
 # GAJA
-find fast way
+Find a fast way (~~Public transport~~, Car, ETC..)   
 ## Required   
 Location Access / Network Access   
 ## Minimum Specifications   
