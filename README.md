@@ -1,6 +1,7 @@
 # GAJA   
-This is Android Application
-Find a fast way (~~Public transport~~, Car, ETC..)   
+Android Application
+1.Check my location
+2.Find a fast way (~~Public transport~~, Car, ETC..)
 ## Required   
 Location Access / Network Access   
 ## Minimum Specifications   
