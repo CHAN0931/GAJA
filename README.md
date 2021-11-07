@@ -23,3 +23,4 @@ __Android API 20 (Android 5.0 [LOLLIPOP])__
     <string name="naver_map_sdk_client_secret" translatable="false">___Client KEY SECRET___</string>
 </resources>
 ```
+## Info
