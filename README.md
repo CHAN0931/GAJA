@@ -24,3 +24,4 @@ __Android API 20 (Android 5.0 [LOLLIPOP])__
 </resources>
 ```
 ## Info
+![info](https://user-images.githubusercontent.com/13824758/140650719-3fd41779-fb37-44d6-9ff1-d3e35a391a98.png)
