@@ -9,14 +9,14 @@
 __Android API 20 (Android 5.0 [LOLLIPOP])__   
 
 ## Code
-* res/values/client_id.xml
+* ___res/values/client_id.xml___
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="naver_map_sdk_client_id" translatable="false">___Client KEY ID___</string>
 </resources>
 ```
-* res/values/client_secret.xml
+* ___res/values/client_secret.xml___
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
