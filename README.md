@@ -1,5 +1,5 @@
 # GAJA   
-  * Check my location   
+  * Check Location   
   * Find a fast way (~~Public transport~~, Car, ETC..)   
 ## Required   
   * Android OS
