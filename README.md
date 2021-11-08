@@ -6,12 +6,10 @@
   * Provide Bookmark DB
 ## Required   
   * Android OS
-  > > ddd
+     > Minimum Specifications
+        * __Android API 20 (Android 5.0 [LOLLIPOP])__   
   * Location Access
   * Network Access   
-## Minimum Specifications   
-__Android API 20 (Android 5.0 [LOLLIPOP])__   
-
 ## Code
 * ___res/values/client_id.xml___
 ```xml
