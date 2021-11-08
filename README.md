@@ -43,9 +43,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    ```
-       
+    }```   
    * ___Example Image___   
     ![example](https://user-images.githubusercontent.com/13824758/140650747-c65bdd49-9d13-4358-ad7f-1386ae688ebe.png)   
-
