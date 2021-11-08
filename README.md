@@ -6,6 +6,7 @@
   * Provide Bookmark DB
 ## Required   
   * Android OS
+  > ddd
   * Location Access
   * Network Access   
 ## Minimum Specifications   
