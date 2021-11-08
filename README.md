@@ -45,7 +45,7 @@ android {
     ...
 }
 ```   
-   * ___Plugins___
+   * ___Dependencies___
 ```Gradle
 dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
