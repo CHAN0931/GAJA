@@ -1,6 +1,9 @@
 # GAJA   
   * Check Location   
   * Find a fast way (~~Public transport~~, Car, ETC..)   
+  * Provide Start, Goal information
+  * Provide alarm option
+  * Provide Bookmark DB
 ## Required   
   * Android OS
   * Location Access
