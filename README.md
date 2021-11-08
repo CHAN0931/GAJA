@@ -27,7 +27,24 @@ __Android API 20 (Android 5.0 [LOLLIPOP])__
 </resources>
 ```
 ## Info
-![info](https://user-images.githubusercontent.com/13824758/140650719-3fd41779-fb37-44d6-9ff1-d3e35a391a98.png)
+![info](https://user-images.githubusercontent.com/13824758/140650719-3fd41779-fb37-44d6-9ff1-d3e35a391a98.png)   
+* Android Gradle Plugin Version - ___4.1.0___   
+* Gradle Version - ___6.5___   
+* ___Build Info___
+```Gradle
+android {
+    compileSdk 30
+
+    defaultConfig {
+        applicationId "com.example.gaja"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    ```
    * ___Example Image___   
     ![example](https://user-images.githubusercontent.com/13824758/140650747-c65bdd49-9d13-4358-ad7f-1386ae688ebe.png)   
 
