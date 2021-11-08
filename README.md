@@ -46,7 +46,7 @@ android {
 }
 ```   
    * ___Dependencies___   
-   > Naver Maps SDK
+     > Naver Maps SDK[https://www.ncloud.com/product/applicationService/maps]
 ```Gradle
 dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
