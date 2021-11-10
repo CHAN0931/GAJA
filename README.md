@@ -9,7 +9,8 @@
      > ___Minimum Specifications___ : Android API 20 (Android 5.0 [LOLLIPOP])   
   * Location Access
   * Network Access   
-## Code
+## Code   
+   > __Enter Private API KEY__
 * ___res/values/client_id.xml___
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
