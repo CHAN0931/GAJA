@@ -10,6 +10,11 @@
      > ___Minimum Specifications___ : Android API 20 (Android 5.0 [LOLLIPOP])   
   * Location Access
   * Network Access   
+  ```xml
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+```   
 ## Code   
    > __Enter your API KEY__
 * ___res/values/client_id.xml___
