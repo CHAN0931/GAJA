@@ -10,7 +10,7 @@
   * Location Access
   * Network Access   
 ## Code   
-   > __Enter Private API KEY__
+   > __Enter your API KEY__
 * ___res/values/client_id.xml___
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
