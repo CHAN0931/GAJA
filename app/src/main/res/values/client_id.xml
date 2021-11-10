@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="naver_map_sdk_client_id" translatable="false">aa</string>
+    <string name="naver_map_sdk_client_id" translatable="false">___Client KEY ID___</string>
 </resources>
