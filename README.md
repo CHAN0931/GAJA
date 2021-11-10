@@ -1,7 +1,8 @@
 # GAJA   
-  * Check Location   
-  * Find a fast way (~~Public transport~~, Car, ETC..)   
-  * Provide Start, Goal information
+  * RealTime-Tracking Users Location      
+  * Provide Start, Goal information   
+  * Find a fast way (~~Public transport~~, Car, ETC..)
+  * Provide Location information   
   * Provide alarm option
   * Provide Bookmark DB
 ## Required   
