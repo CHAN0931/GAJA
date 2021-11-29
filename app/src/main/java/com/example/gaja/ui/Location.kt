@@ -130,6 +130,7 @@ class location : Fragment(), OnMapReadyCallback {
                         }
                     }
                 }
+                Toast.makeText(requireContext(), "목적지 검색을 종료합니다.", Toast.LENGTH_LONG).show()
             }
             contentValues.put("$caption", "$coord") //Location Information => DB
             database.insert("bookmark",null,contentValues)
