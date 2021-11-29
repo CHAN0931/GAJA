@@ -33,7 +33,6 @@ import kotlin.math.roundToInt
 class location : Fragment(), OnMapReadyCallback {
     lateinit var dbHelper: DBHelper
     lateinit var database: SQLiteDatabase
-    var Check_Distance = 1
     var TAG:String = "로그"
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -105,6 +104,7 @@ class location : Fragment(), OnMapReadyCallback {
             path.map = null
             infoWindow.close()
             if(naverMap.locationOverlay.isVisible) {
+                var CheckDistance = 0
                 Toast.makeText(requireContext(), "목적지 검색을 시작합니다.", Toast.LENGTH_LONG).show()
                 lifecycleScope.launch {
                     MapsApi.directions(naverMap.locationOverlay.position, coord).firstRoute?.let {
@@ -113,16 +113,21 @@ class location : Fragment(), OnMapReadyCallback {
                         infoWindow.tag = it.summary
                         infoWindow.invalidate()
                         infoWindow.open(marker)
+                        CheckDistance = it.summary.distance
                         delay(TimeUnit.SECONDS.toSeconds(3))
-                        while (it.summary.distance > 10) {
+                    }
+                }
+                while(CheckDistance > 10){
+                    lifecycleScope.launch {
+                        MapsApi.directions(naverMap.locationOverlay.position, coord).firstRoute?.let {
                             path.coords = it.coords
                             path.map = naverMap
                             infoWindow.tag = it.summary
                             infoWindow.invalidate()
                             infoWindow.open(marker)
+                            CheckDistance = it.summary.distance
                             delay(TimeUnit.SECONDS.toSeconds(3))
                         }
-                        Toast.makeText(requireContext(), "목적지 검색을 종료합니다.", Toast.LENGTH_LONG).show()
                     }
                 }
             }
