@@ -23,13 +23,17 @@ import com.naver.maps.map.overlay.*
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.android.awaitFrame
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
 class location : Fragment(), OnMapReadyCallback {
     lateinit var dbHelper: DBHelper
     lateinit var database: SQLiteDatabase
-
+    var Check_Distance = 1
     var TAG:String = "로그"
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
@@ -100,8 +104,8 @@ class location : Fragment(), OnMapReadyCallback {
             }
             path.map = null
             infoWindow.close()
-
-            if(naverMap.locationOverlay.isVisible){
+            if(naverMap.locationOverlay.isVisible) {
+                Toast.makeText(requireContext(), "목적지 검색을 시작합니다.", Toast.LENGTH_LONG).show()
                 lifecycleScope.launch {
                     MapsApi.directions(naverMap.locationOverlay.position, coord).firstRoute?.let {
                         path.coords = it.coords
@@ -109,6 +113,16 @@ class location : Fragment(), OnMapReadyCallback {
                         infoWindow.tag = it.summary
                         infoWindow.invalidate()
                         infoWindow.open(marker)
+                        delay(TimeUnit.SECONDS.toSeconds(3))
+                        while (it.summary.distance > 10) {
+                            path.coords = it.coords
+                            path.map = naverMap
+                            infoWindow.tag = it.summary
+                            infoWindow.invalidate()
+                            infoWindow.open(marker)
+                            delay(TimeUnit.SECONDS.toSeconds(3))
+                        }
+                        Toast.makeText(requireContext(), "목적지 검색을 종료합니다.", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -122,7 +136,7 @@ class location : Fragment(), OnMapReadyCallback {
         }
         naverMap.setOnMapLongClickListener { pointF, latLng ->
             showMarker(latLng, )
-            showOverlays(latLng, )
+            showOverlays(latLng, ).run { }
         }
     }
     override fun onRequestPermissionsResult(
